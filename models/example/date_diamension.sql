@@ -1,4 +1,4 @@
-WITH CTE AS (
+WITH DD AS (
   select 
   to_timestamp(STARTED_AT) as STARTED_AT,
   DATE(to_timestamp(STARTED_AT)) as DATE_STARTED_AT,
@@ -8,9 +8,9 @@ WITH CTE AS (
 
   {{get_season('STARTED_AT')}} as SEASON_OF_YEAR 
   
-  from {{ source('snowflake', 'bike') }} 
+from {{ ref('stg_bike') }}
 )
 
 select 
 * 
-from CTE
+from DD

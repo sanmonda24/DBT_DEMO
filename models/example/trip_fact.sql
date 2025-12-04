@@ -2,15 +2,14 @@ WITH TRIPS as (
 
 select 
 RIDE_ID,
-RIDEABLE_TYPE,
+--RIDEABLE_TYPE,
 date(to_timestamp(STARTED_AT)) as TRIP_DATE,
 START_STATIO_ID as START_STATION_ID,
 END_STATION_ID,
 MEMBER_CSUAL,
 TIMESTAMPDIFF(SECOND,TO_TIMESTAMP(STARTED_AT),TO_TIMESTAMP(ENDED_AT)) AS TRIP_DURATION_SECONDS
 
-from {{ source('snowflake', 'bike') }}
-
+from {{ ref('stg_bike') }}
 )
 
 select 
